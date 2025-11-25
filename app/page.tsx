@@ -1,103 +1,192 @@
-import Image from "next/image";
+import { Navbar } from "@/components/navbar"
+import { Footer } from "@/components/footer"
+import { ListingCard } from "@/components/listing-card"
+import { ArrowRight, CheckCircle, MapPin, Lock } from "lucide-react"
+import Link from "next/link"
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const featuredListings = [
+    {
+      id: "1",
+      title: "Modern Studio with City View",
+      price: 250,
+      image: "/modern-studio-apartment.png",
+      location: "Orange Groove",
+      distance: 2.1,
+      amenities: ["WiFi", "Water", "Transport"],
+      availability: "available" as const,
+    },
+    {
+      id: "2",
+      title: "Cozy 2-Bedroom House",
+      price: 400,
+      image: "/cozy-bedroom-house.jpg",
+      location: "Rujeko",
+      distance: 1.5,
+      amenities: ["WiFi", "Water"],
+      availability: "few-left" as const,
+    },
+    {
+      id: "3",
+      title: "Luxury Bedsitter - Premium",
+      price: 350,
+      image: "/luxury-bedsitter.jpg",
+      location: "Coldstream",
+      distance: 3.2,
+      amenities: ["WiFi", "Transport"],
+      availability: "available" as const,
+    },
+    {
+      id: "4",
+      title: "Shared Apartment Near Campus",
+      price: 180,
+      image: "/shared-apartment-campus.jpg",
+      location: "Toron",
+      distance: 0.8,
+      amenities: ["Water"],
+      availability: "booked" as const,
+    },
+  ]
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  return (
+    <main>
+      <Navbar role="guest" />
+
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-(--color-primary)/5 to-(--color-accent)/5 py-20 md:py-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h1 className="text-4xl md:text-5xl font-bold text-(--color-text-primary) mb-4 leading-tight">
+                Find Your Perfect Off-Campus Home
+              </h1>
+              <p className="text-lg text-(--color-text-secondary) mb-8">
+                Trusted student accommodation with verified landlords, secure payments, and transparent reviews.
+              </p>
+
+              {/* Search Bar */}
+              <div className="glass rounded-xl p-2 flex flex-col sm:flex-row gap-2 mb-8">
+                <input
+                  type="text"
+                  placeholder="Search location..."
+                  className="flex-1 px-4 py-3 bg-transparent text-(--color-text-primary) placeholder-(--color-text-light) outline-none"
+                />
+                <input
+                  type="number"
+                  placeholder="Max price"
+                  className="w-32 px-4 py-3 bg-transparent text-(--color-text-primary) placeholder-(--color-text-light) outline-none"
+                />
+                <button className="px-6 py-3 bg-(--color-primary) text-white rounded-lg hover:bg-(--color-primary-dark) font-semibold whitespace-nowrap">
+                  Search
+                </button>
+              </div>
+
+              <div className="flex gap-4">
+                <Link
+                  href="/student/listings"
+                  className="px-6 py-3 bg-(--color-primary) text-white rounded-lg hover:bg-(--color-primary-dark) font-semibold inline-flex items-center gap-2"
+                >
+                  Browse Accommodation <ArrowRight size={18} />
+                </Link>
+                <Link
+                  href="/register?role=landlord"
+                  className="px-6 py-3 border-2 border-(--color-primary) text-(--color-primary) rounded-lg hover:bg-(--color-primary)/5 font-semibold inline-flex items-center gap-2"
+                >
+                  Register as Landlord
+                </Link>
+              </div>
+            </div>
+
+            <div className="relative h-96 hidden md:block bg-(--color-bg-tertiary) rounded-2xl overflow-hidden">
+              <img
+                src="/students-in-accommodation-happy.jpg"
+                alt="Student accommodation"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+      </section>
+
+      {/* Featured Listings */}
+      <section className="py-16 md:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-(--color-text-primary) mb-3">Featured Accommodations</h2>
+            <p className="text-lg text-(--color-text-secondary)">
+              Popular listings from verified landlords near campus
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            {featuredListings.map((listing) => (
+              <ListingCard key={listing.id} {...listing} />
+            ))}
+          </div>
+
+          <div className="text-center">
+            <Link
+              href="/student/listings"
+              className="px-8 py-3 bg-(--color-primary) text-white rounded-lg hover:bg-(--color-primary-dark) font-semibold inline-flex items-center gap-2"
+            >
+              View All Listings <ArrowRight size={18} />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us */}
+      <section id="why-us" className="py-16 md:py-24 bg-(--color-bg-secondary)">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl md:text-4xl font-bold text-(--color-text-primary) mb-12 text-center">
+            Why Choose HomeHaven?
+          </h2>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: <MapPin size={32} className="text-(--color-primary)" />,
+                title: "Distance-Based Recommendations",
+                description: "Find accommodations based on proximity to campus with real walking times.",
+              },
+              {
+                icon: <CheckCircle size={32} className="text-(--color-accent)" />,
+                title: "Verified Landlords",
+                description: "All landlords are vetted and verified to ensure your safety and peace of mind.",
+              },
+              {
+                icon: <Lock size={32} className="text-(--color-primary)" />,
+                title: "Secure Payments",
+                description: "Protected transactions with Ecocash and Paynow integration for your security.",
+              },
+            ].map((feature, i) => (
+              <div key={i} className="glass rounded-xl p-8 text-center">
+                <div className="flex justify-center mb-4">{feature.icon}</div>
+                <h3 className="text-xl font-semibold text-(--color-text-primary) mb-3">{feature.title}</h3>
+                <p className="text-(--color-text-secondary)">{feature.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16 md:py-24 bg-gradient-to-r from-(--color-primary) to-(--color-primary-light)">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Ready to Find Your Home?</h2>
+          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+            Join thousands of students who found their perfect off-campus accommodation on HomeHaven.
+          </p>
+          <Link
+            href="/register"
+            className="px-8 py-4 bg-white text-(--color-primary) rounded-lg hover:bg-(--color-bg-secondary) font-semibold inline-flex items-center gap-2 text-lg"
+          >
+            Get Started Now <ArrowRight size={20} />
+          </Link>
+        </div>
+      </section>
+
+      <Footer />
+    </main>
+  )
 }
